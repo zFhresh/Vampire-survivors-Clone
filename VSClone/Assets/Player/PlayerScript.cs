@@ -12,6 +12,7 @@ public class PlayerScript : MonoBehaviour
     float timer;
     public float timeBetweenFiring;
     public static PlayerScript Instance;
+    Animator anim;
     [SerializeField] GameObject Bullet;
     void Start()
     {
@@ -19,6 +20,7 @@ public class PlayerScript : MonoBehaviour
         if(Instance == null) {
             Instance = this;
         }
+        anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -42,7 +44,12 @@ public class PlayerScript : MonoBehaviour
             Horizontal,
             vertical
         );
+        anim.SetFloat("Horizontal",Horizontal);
+        
     }
+   
+
+
     public Vector2 MoveVector;
     private void LateUpdate() {
         rb.velocity = MoveVector * Speed; 

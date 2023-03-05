@@ -8,6 +8,7 @@ public class BulletScript : MonoBehaviour
     private Camera MainCam;
     private Rigidbody2D rb;
     public float Force;
+    public int Damage;
     void Start()
     {
         MainCam = Camera.main;
@@ -29,8 +30,11 @@ public class BulletScript : MonoBehaviour
         
     }
     private void OnTriggerEnter2D(Collider2D other) {
+         if(other.CompareTag("ForPlayer")) {return;} 
         if(other.CompareTag("Player")) {return;}
-        Destroy(other.gameObject);
+        if(other.GetComponent<EnemyScript>() != null) {
+            other.GetComponent<EnemyScript>().GetDamage(Damage);
+        }
         Destroy(this.gameObject);
     }
 }
